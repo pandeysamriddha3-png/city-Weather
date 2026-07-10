@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background: black;
+        }
+
+        .box {
+            color: red,blue;
+            Gradient: linear-gradient(135deg, red, blue);
+        }
+    </style>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="box">
+    <h1>Weather App</h1>
+    <style>
+        .box {
+            color: white;
+        }
+    </style>
+
+    <input id="city" placeholder="Enter city">
+
+    <button onclick="getWeather()">
+        Search
+    </button>
+    <style>
+               button {
+            background: linear-gradient(135deg, #ff0066, #6600ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+
+    <h2 id="name"></h2>
+    <p id="temp"></p>
+    <p id="weather"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
