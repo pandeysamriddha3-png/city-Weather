@@ -1,92 +1,70 @@
 const API_KEY = "81e71249fca24b914673fed677d36512";
 
+async function getWeather(){
 
-async function getWeather() {
+    let city = document.getElementById("city").value.trim();
 
-    const city = document.getElementById("city").value;
-
-
-    if (city === "") {
-
-        document.getElementById("name").innerHTML =
-        "⚠ Enter city name";
-
+    if(city === ""){
+        document.getElementById("name").innerHTML = "Enter city ⚠️";
         return;
     }
 
 
-    const url =
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+    let url =
+    `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
 
 
-    try {
+    try{
+
+        let response = await fetch(url);
+
+        let data = await response.json();
+
+        console.log(data);
 
 
-        const response = await fetch(url);
-
-
-        const weather = await response.json();
-
-
-        console.log(weather);
-
-
-
-        if (weather.cod == 200) {
-
+        if(data.cod == 200){
 
             document.getElementById("name").innerHTML =
-            `📍 ${weather.name}, ${weather.sys.country}`;
+            "📍 " + data.name;
 
 
             document.getElementById("temp").innerHTML =
             `
-            🌡 Temperature: ${weather.main.temp} °C <br>
-            🤔 Feels Like: ${weather.main.feels_like} °C <br>
-            💧 Humidity: ${weather.main.humidity}%
+            🌡 ${data.main.temp} °C <br>
+            🤔 Feels ${data.main.feels_like} °C <br>
+            💧 ${data.main.humidity}% Humidity
             `;
 
 
-            document.getElementById("weatherr").innerHTML =
+            document.getElementById("weather").innerHTML =
             `
-            ☁ Weather: ${weather.weather[0].description}<br>
-            💨 Wind: ${weather.wind.speed} m/s
+            ☁ ${data.weather[0].description}<br>
+            💨 ${data.wind.speed} m/s
             `;
-
 
         }
 
-
-        else {
-
+        else{
 
             document.getElementById("name").innerHTML =
-            "❌ City not found";
+            "❌ " + data.message;
 
-
-            document.getElementById("temmp").innerHTML = "";
-
-
-            document.getElementById("weatherr").innerHTML = "";
-
+            document.getElementById("temp").innerHTML = "";
+            document.getElementById("weather").innerHTML = "";
 
         }
-
 
     }
 
 
-    catch (error) {
-
-
-        document.getElementById("name").innerHTML =
-        "❌ Network Error";
-
+    catch(error){
 
         console.log(error);
 
+        document.getElementById("name").innerHTML =
+        "❌ API connection failed";
 
     }
-
 
 }
