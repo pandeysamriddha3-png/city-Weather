@@ -136,17 +136,3 @@ body{
     0 0 30px rgba(255,255,255,0.6);
 
 }
-.logo{
-
-    width:200px;
-    height:200px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    mix-blend-mode:multiply;
-
-    background:transparent;
-
-}
