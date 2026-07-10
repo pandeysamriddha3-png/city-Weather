@@ -39,7 +39,7 @@ async function getWeather() {
             `📍 ${weather.name}, ${weather.sys.country}`;
 
 
-            document.getElementById("temmp").innerHTML =
+            document.getElementById("temp").innerHTML =
             `
             🌡 Temperature: ${weather.main.temp} °C <br>
             🤔 Feels Like: ${weather.main.feels_like} °C <br>
