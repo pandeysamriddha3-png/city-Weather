@@ -1,54 +1,92 @@
 const API_KEY = "81e71249fca24b914673fed677d36512";
 
 
-async function getWeather(){
+async function getWeather() {
 
-    let city = document.getElementById("city").value;
+    const city = document.getElementById("city").value;
 
-    let url =
+
+    if (city === "") {
+
+        document.getElementById("name").innerHTML =
+        "⚠ Enter city name";
+
+        return;
+    }
+
+
+    const url =
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
 
-    try{
+    try {
 
-        let response = await fetch(url);
 
-        let weather = await response.json();
+        const response = await fetch(url);
+
+
+        const weather = await response.json();
+
 
         console.log(weather);
 
 
-        if(weather.cod == 200){
+
+        if (weather.cod == 200) {
+
 
             document.getElementById("name").innerHTML =
-            "📍 " + weather.name;
+            `📍 ${weather.name}, ${weather.sys.country}`;
 
 
             document.getElementById("temmp").innerHTML =
-            "🌡 Temp: " + weather.main.temp + " °C";
+            `
+            🌡 Temperature: ${weather.main.temp} °C <br>
+            🤔 Feels Like: ${weather.main.feels_like} °C <br>
+            💧 Humidity: ${weather.main.humidity}%
+            `;
 
 
             document.getElementById("weatherr").innerHTML =
-            "☁ " + weather.weather[0].description;
+            `
+            ☁ Weather: ${weather.weather[0].description}<br>
+            💨 Wind: ${weather.wind.speed} m/s
+            `;
+
 
         }
 
-        else{
+
+        else {
+
 
             document.getElementById("name").innerHTML =
-            "❌ " + weather.message;
+            "❌ City not found";
+
+
+            document.getElementById("temmp").innerHTML = "";
+
+
+            document.getElementById("weatherr").innerHTML = "";
+
 
         }
+
 
     }
 
-    catch(error){
+
+    catch (error) {
+
 
         document.getElementById("name").innerHTML =
-        error;
+        "❌ Network Error";
+
 
         console.log(error);
 
+
     }
+
 
 }
